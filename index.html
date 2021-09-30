@@ -1,0 +1,61 @@
+<style type="text/css">
+	@keyframes slider_ani{
+		from {opacity: 0;}
+		to{opacity: 1;}
+	}
+	.hide{
+		display: none;
+	}
+div:not(.hide){
+animation: slider_ani 2s ;
+}
+	button{
+		background-color: blue;
+		margin: 10px;
+		padding: 10px;
+		color: white;
+		border-radius: 5px;
+		border: none;
+		font-size: 20px;
+	}
+</style>
+<div class=""><img src="a.jpg" width="600px" height="300px"></div>
+<div class="hide"><img src="b.png" width="600px" height="300px"></div>
+<div class="hide"><img src="c.jpg" width="600px" height="300px"></div>
+<div class="hide"><img src="d.jpg" width="600px" height="300px"></div>
+<button class="btn">Next</button>
+<button class="stop">Stop</button>
+<button class="start">Start</button>
+
+<script type="text/javascript">
+	const next_btn = document.querySelector(".btn")
+	const stop = document.querySelector(".stop")
+	const start = document.querySelector(".start")
+	const divs = document.querySelectorAll("div")
+	var counter = 0
+	var c_interval 
+
+	function next(){
+		if(counter == divs.length - 1){
+			counter = 0
+			divs[divs.length - 1].classList.add("hide")
+			divs[0].classList.remove("hide")
+
+		}else{
+			divs[counter].classList.add("hide")
+			divs[counter+1].classList.remove("hide")
+			counter++
+		}
+		
+	}
+	function auto_slider(action){
+		if(action == 'start'){
+			c_interval = setInterval(function(){next()},2000)
+		}else{
+			clearInterval(c_interval)
+		}
+}
+	next_btn.addEventListener("click",next)
+	start.addEventListener("click",function(){auto_slider('start')})
+	stop.addEventListener("click",function(){auto_slider('stop')})
+</script>
